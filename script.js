@@ -42,60 +42,60 @@ const keyboard = {
             return `<i class="material-icons">${icon_name}</i>`;
         };
         keyLayout.forEach(key => {
-            const keyElement = document.createElement('button');
+            const button = document.createElement('button');
             const insertLineBreak = ['backspace','p','enter','?'].indexOf(key) !== -1;
-            keyElement.setAttribute('type','button');
-            keyElement.classList.add('keyboard__key');
+            button.setAttribute('type','button');
+            button.classList.add('keyboard__key');
             switch(key){
                 case "backspace":
-                    keyElement.classList.add('keyboard__key--wide');
-                    keyElement.innerHTML = createIconHTML('backspace');
-                    keyElement.addEventListener('click',() => {
+                    button.classList.add('keyboard__key--wide');
+                    button.innerHTML = createIconHTML('backspace');
+                    button.addEventListener('click',() => {
                         this.properties.value = this.properties.value.substring(0,this.properties.value.length - 1);
                         this._triggerEvent('oninput');
                     });
                     break;
                 case "caps":
-                    keyElement.classList.add('keyboard__key--wide','keyboard__key--activatable');
-                    keyElement.innerHTML = createIconHTML('keyboard_capslock');
-                    keyElement.addEventListener('click',() => {
+                    button.classList.add('keyboard__key--wide','keyboard__key--activatable');
+                    button.innerHTML = createIconHTML('keyboard_capslock');
+                    button.addEventListener('click',() => {
                         this._toggleCapsLock();
-                        keyElement.classList.toggle('keyboard__key--active',this.properties.capsLock);
+                        button.classList.toggle('keyboard__key--active',this.properties.capsLock);
                     });
                     break;
                 case "enter":
-                    keyElement.classList.add('keyboard__key--wide');
-                    keyElement.innerHTML = createIconHTML('keyboard_return');
-                    keyElement.addEventListener('click',() => {
+                    button.classList.add('keyboard__key--wide');
+                    button.innerHTML = createIconHTML('keyboard_return');
+                    button.addEventListener('click',() => {
                         this.properties.value += '\n';
                         this._triggerEvent('oninput');
                     });
                     break;
                 case "space":
-                    keyElement.classList.add('keyboard__key--extra-wide');
-                    keyElement.innerHTML = createIconHTML('space_bar');
-                    keyElement.addEventListener('click',() => {
+                    button.classList.add('keyboard__key--extra-wide');
+                    button.innerHTML = createIconHTML('space_bar');
+                    button.addEventListener('click',() => {
                         this.properties.value += ' ';
                         this._triggerEvent('oninput');
                     });
                     break;
                 case "done":
-                    keyElement.classList.add('keyboard__key--wide','keyboard__key--dark');
-                    keyElement.innerHTML = createIconHTML('check_circle');
-                    keyElement.addEventListener('click',() => {
+                    button.classList.add('keyboard__key--wide','keyboard__key--dark');
+                    button.innerHTML = createIconHTML('check_circle');
+                    button.addEventListener('click',() => {
                         this.close();
                         this._triggerEvent('onclose');
                     });
                     break;
                 default:
-                    keyElement.textContent = key.toLowerCase();
-                    keyElement.addEventListener('click',() => {
+                    button.textContent = key.toLowerCase();
+                    button.addEventListener('click',() => {
                         this.properties.value += this.properties.capsLock ? key.toUpperCase() : key.toLowerCase();
                         this._triggerEvent('oninput');
                     });
                     break;
             }
-            fragment.appendChild(keyElement);
+            fragment.appendChild(button);
             if(insertLineBreak){
                 fragment.appendChild(document.createElement('br'));
             }
